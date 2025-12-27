@@ -30,7 +30,7 @@ parameters = {
 response = requests.get(STOCK_ENDPOINT, params=parameters)
 response.raise_for_status()
 data = response.json()
-# print(data)
+
 
 daily_stock = data["Time Series (Daily)"]
 
@@ -59,7 +59,6 @@ articles = newsapi.get_everything(
 )
 
 news = articles["articles"][:3]
-print(news)
 
 news_list = []
 for article in news:
@@ -71,13 +70,13 @@ print(f"{title}\n{description}")
 
 client = Client(TWILIO_AUTH_SID, TWILIO_AUTH_TOKEN)
 
-# if percentage_difference >= 5 or percentage_difference <= -5:
-for title in news_list:
-    message = client.messages.create(
-        body=f"{STOCK} {percentage_difference}%\nHeadline: {title}\nBrief: {description}",
-        from_=f"whatsapp:{TWILIO_NUM}",
-        to=f"whatsapp:{WHATSAPP_NUM}"
-    )
-    
-    print(message.sid)
+if percentage_difference >= 5 or percentage_difference <= -5:
+    for title in news_list:
+        message = client.messages.create(
+            body=f"{STOCK} {percentage_difference}%\nHeadline: {title}\nBrief: {description}",
+            from_=f"whatsapp:{TWILIO_NUM}",
+            to=f"whatsapp:{WHATSAPP_NUM}"
+        )
+        
+        print(message.sid)
 
