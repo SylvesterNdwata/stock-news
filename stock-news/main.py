@@ -40,9 +40,6 @@ stock_info = list(daily_stock.items())
 current_closing_price = float(stock_info[0][1]["4. close"])
 previous_closing_price = float(stock_info[1][1]["4. close"])
 
-print(current_closing_price)
-print(previous_closing_price)
-
 difference = current_closing_price - previous_closing_price
 
 percentage_difference = round((difference / current_closing_price) * 100)
